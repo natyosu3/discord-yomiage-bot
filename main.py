@@ -38,7 +38,7 @@ kernel32.SetConsoleMode(handle, MODE)
 
 
 client = discord.Client(intents=discord.Intents.all())
-TOKEN = 'MTA1OTgyMDkwMjc1NTM0NDQ3Mw.GfuZQZ.rj8RcvSqmAAGfvRrg7AEaKXiwR6jPmSiZdkdS8'
+TOKEN = 'TOKENを入力 ※取り扱い注意'
 
 
 color_dic = {"black":"\033[30m", "red":"\033[31m", "green":"\033[32m", "yellow":"\033[33m", "blue":"\033[34m", "Cyan":"\033[36m", "end":"\033[0m"}
