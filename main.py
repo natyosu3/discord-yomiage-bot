@@ -205,7 +205,6 @@ def launch_verification():
     sys.exit()
   
   os.environ['Path'] += os.pathsep + VS_COMPILER_PATH
-  print(os.environ['Path'])
 
 if __name__ == '__main__':
   launch_verification()
