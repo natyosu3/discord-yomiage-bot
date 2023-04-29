@@ -181,9 +181,7 @@ async def on_message(message):
         await voice_reproducing_relationship.nomal(text=text, message=message, voiceChannel=voiceChannel, client=client)
 
 def play_mp3(cmd):
-  global on_playing
-  on_playing = True
-  print(cmd)
+  print("MP3ファイル名: " + cmd)
   target = ' '
   idx = cmd.find(target)
   track_name_mp3 = cmd[idx+1:]
