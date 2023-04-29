@@ -200,7 +200,7 @@ def resume_mp3():
   voiceChannel.resume()
 
 def launch_verification():
-  if VS_COMPILER_PATH == None:
+  if VS_COMPILER_PATH == "NONE":
     print("config.pyにvisual studio compilerのパスを設定してください")
     sys.exit()
   
