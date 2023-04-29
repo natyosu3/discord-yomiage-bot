@@ -32,7 +32,7 @@ async def cmd_call_activing_dic_mode(message):
 
   # listコマンド
   elif (LIST_CMD in message.content):
-    with open("tmp/user_dic.txt", "r", encoding="UTF-8") as f:
+    with open(USER_DIC_FILE, "r", encoding="UTF-8") as f:
       tex = f.read()
       await message.channel.send("ユーザ辞書-登録済み一覧 ※単語(全角):::読み方(カタカナ)\n-------------------\n" + tex + "-------------------")
 

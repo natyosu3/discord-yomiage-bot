@@ -6,6 +6,8 @@ import subprocess
 import pandas as pd
 import time
 
+from config.config import *
+
 
 FULLWIDTH_DIGITS = "０１２３４５６７８９"
 FULLWIDTH_ALPHABET = "ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ"
@@ -21,14 +23,13 @@ HALFWIDTH_ALL = HALFWIDTH_ALPHANUMERIC + HALFWIDTH_PUNCTUATION
 
 # 数字、アルファベットを半角に変換する。
 conv_map = str.maketrans(HALFWIDTH_ALPHANUMERIC, FULLWIDTH_ALPHANUMERIC)
-user_dic = "tmp/user_dic.txt"
 
 def add_csv(word, reading):
   word = word.translate(conv_map)
   reading = jaconv.hira2kata(reading)
   linecsv = f"{word},,,1,名詞,一般,*,*,*,*,{word},{reading},{reading},0/1,*"
   
-  with open("tmp/user_dic.txt", "a", encoding="UTF-8") as f:
+  with open(USER_DIC_FILE, "a", encoding="UTF-8") as f:
     text = f"{word}:::{reading}\n"
     f.write(text)
 
