@@ -74,9 +74,9 @@ def del_csv(delword):
       with open('make_dic/unidic-csj.csv', mode='a', encoding="UTF-8") as f:
         print(linecsv, file=f)
   compile_dir.compile()
-  time.sleep(1)
-  shutil.move("make_dic/matrix.bin", "dic/matrix.bin")
-  shutil.move("make_dic/sys.dic", "dic/sys.dic")
+  time.sleep(3)
+  shutil.move("make_dic/matrix.bin", "./dic/matrix.bin")
+  shutil.move("make_dic/sys.dic", "./dic/sys.dic")
   shutil.move("make_dic/char.bin", "dic/char.bin")
   shutil.move("make_dic/unk.dic", "dic/unk.dic")
 
