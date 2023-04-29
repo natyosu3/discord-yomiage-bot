@@ -35,9 +35,6 @@ client = discord.Client(intents=discord.Intents.all())
 voiceChannel: VoiceChannel = None
 join_status = False
 on_playing = False
-msg = []
-i = 0
-count = 0
 text_ch_id = 0
 vc_ch_id = 0
 
@@ -75,18 +72,16 @@ async def on_message(message):
   global voiceChannel
   global join_status
   global vch
-  global msg
-  global i, count
   global text_ch_id
   global vc_ch_id
   global dic_mode_vars
 
   # helpコマンド
-  if message.content == ".help":
+  if message.content == HELP_CMD:
     await message.channel.send(HELP_MESSAGE)
 
   # dic-modeコマンド
-  if message.content == '.dic-mode':
+  if message.content == DIC_MODE_CMD:
     await dic_mode_cmd.cmd_call_dic_mode(message)
 
   # activing dic-mode (if in dic-mode, all msg are ignored)
@@ -101,7 +96,7 @@ async def on_message(message):
     return
 
   # joinコマンド実行時
-  if message.content == '.join':
+  if message.content == JOIN_CMD:
     # コマンド実行者がボイスチャンネルに参加していない場合
     if message.author.voice == None:
       await message.channel.send('joinコマンドはボイスチャンネルに参加してから実行して下さい')
@@ -129,7 +124,7 @@ async def on_message(message):
     voiceChannel = await VoiceChannel.connect(vch)
 
   # getoutコマンド実行時
-  if message.content == '.getout':
+  if message.content == LEAVE_CMD:
     if join_status == False:
       await message.channel.send('ボイスチャンネルに参加していません。!joinコマンドを実行して下さい。')
       return
@@ -141,7 +136,7 @@ async def on_message(message):
     return
 
   # playコマンド
-  if str(message.content)[0:5] == '.play':
+  if str(message.content)[0:5] == PLAY_MP3_CMD:
     if voiceChannel.is_playing() == True:
       while True:
         if voiceChannel.is_playing() == False:
@@ -149,13 +144,13 @@ async def on_message(message):
         await asyncio.sleep(1)
     play_mp3(message.content)
   
-  if message.content == '.pause':
+  if message.content == PAUSE_MP3_CMD:
     pause_mp3()
 
-  if message.content == '.stop':
+  if message.content == STOP_MP3_CMD:
     stop_mp3()
 
-  if message.content == '.resume':
+  if message.content == RESUME_MP3_CMD:
     resume_mp3()
 
   # join済みの場合
