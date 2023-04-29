@@ -21,6 +21,7 @@ import asyncio
 import ctypes
 import asyncio
 import sys
+import os
 import dic_mode_cmd
 import voice_reproducing_relationship
 from config.config import *
@@ -29,7 +30,6 @@ from dic_mode_vars import *
 kernel32 = ctypes.windll.kernel32
 handle = kernel32.GetStdHandle(-11)
 kernel32.SetConsoleMode(handle, MODE)
-
 
 client = discord.Client(intents=discord.Intents.all())
 
@@ -203,6 +203,9 @@ def launch_verification():
   if VS_COMPILER_PATH == None:
     print("config.pyにvisual studio compilerのパスを設定してください")
     sys.exit()
+  
+  os.environ['Path'] += os.pathsep + VS_COMPILER_PATH
+  print(os.environ['Path'])
 
 if __name__ == '__main__':
   launch_verification()
