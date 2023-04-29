@@ -48,12 +48,12 @@ def add_csv(word, reading):
 def del_csv(delword):
   char_remove = delword.translate(conv_map)
 
-  os.rename(user_dic, user_dic + '.bak')
-  with open(user_dic, "w", encoding="UTF-8") as f:
-    for line in open(user_dic + ".bak", "r", encoding="UTF-8"):
+  os.rename(USER_DIC_FILE, USER_DIC_FILE + '.bak')
+  with open(USER_DIC_FILE, "w", encoding="UTF-8") as f:
+    for line in open(USER_DIC_FILE + ".bak", "r", encoding="UTF-8"):
       if not char_remove in line:
         f.write(line)
-  os.remove(user_dic + '.bak')
+  os.remove(USER_DIC_FILE + '.bak')
 
   p = subprocess.run("find /v /c \"\" make_dic/unidic-csj.csv",capture_output=True).stdout
 
@@ -66,7 +66,7 @@ def del_csv(delword):
     df.drop(index=i, inplace=True)
   df.to_csv('make_dic/unidic-csj.csv', index=False)
 
-  with open(user_dic, "r", encoding="UTF-8") as f:
+  with open(USER_DIC_FILE, "r", encoding="UTF-8") as f:
     for line in f:
       lis = line.split(":::")
       word = lis[0]
