@@ -1,0 +1,11 @@
+/.vscode
+/config
+/dic
+/lunch.bat
+/make_dic
+/mp3
+/tmp
+/core_files
+/discord-yomiage-venv
+/__pycache__
+/dist

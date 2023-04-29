@@ -6,6 +6,8 @@ import subprocess
 import pandas as pd
 import time
 
+from config.config import *
+
 
 FULLWIDTH_DIGITS = "０１２３４５６７８９"
 FULLWIDTH_ALPHABET = "ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ"
@@ -21,14 +23,13 @@ HALFWIDTH_ALL = HALFWIDTH_ALPHANUMERIC + HALFWIDTH_PUNCTUATION
 
 # 数字、アルファベットを半角に変換する。
 conv_map = str.maketrans(HALFWIDTH_ALPHANUMERIC, FULLWIDTH_ALPHANUMERIC)
-user_dic = "tmp/user_dic.txt"
 
 def add_csv(word, reading):
   word = word.translate(conv_map)
   reading = jaconv.hira2kata(reading)
   linecsv = f"{word},,,1,名詞,一般,*,*,*,*,{word},{reading},{reading},0/1,*"
   
-  with open("tmp/user_dic.txt", "a", encoding="UTF-8") as f:
+  with open(USER_DIC_FILE, "a", encoding="UTF-8") as f:
     text = f"{word}:::{reading}\n"
     f.write(text)
 
@@ -47,12 +48,12 @@ def add_csv(word, reading):
 def del_csv(delword):
   char_remove = delword.translate(conv_map)
 
-  os.rename(user_dic, user_dic + '.bak')
-  with open(user_dic, "w", encoding="UTF-8") as f:
-    for line in open(user_dic + ".bak", "r", encoding="UTF-8"):
+  os.rename(USER_DIC_FILE, USER_DIC_FILE + '.bak')
+  with open(USER_DIC_FILE, "w", encoding="UTF-8") as f:
+    for line in open(USER_DIC_FILE + ".bak", "r", encoding="UTF-8"):
       if not char_remove in line:
         f.write(line)
-  os.remove(user_dic + '.bak')
+  os.remove(USER_DIC_FILE + '.bak')
 
   p = subprocess.run("find /v /c \"\" make_dic/unidic-csj.csv",capture_output=True).stdout
 
@@ -65,7 +66,7 @@ def del_csv(delword):
     df.drop(index=i, inplace=True)
   df.to_csv('make_dic/unidic-csj.csv', index=False)
 
-  with open(user_dic, "r", encoding="UTF-8") as f:
+  with open(USER_DIC_FILE, "r", encoding="UTF-8") as f:
     for line in f:
       lis = line.split(":::")
       word = lis[0]
@@ -74,7 +75,7 @@ def del_csv(delword):
       with open('make_dic/unidic-csj.csv', mode='a', encoding="UTF-8") as f:
         print(linecsv, file=f)
   compile_dir.compile()
-  time.sleep(1)
+  time.sleep(2)
   shutil.move("make_dic/matrix.bin", "dic/matrix.bin")
   shutil.move("make_dic/sys.dic", "dic/sys.dic")
   shutil.move("make_dic/char.bin", "dic/char.bin")
