@@ -20,6 +20,7 @@ from discord.errors import *
 import asyncio
 import ctypes
 import asyncio
+import sys
 import dic_mode_cmd
 import voice_reproducing_relationship
 from config.config import *
@@ -198,6 +199,11 @@ def stop_mp3():
 def resume_mp3():
   voiceChannel.resume()
 
+def launch_verification():
+  if VS_COMPILER_PATH == None:
+    print("config.pyにvisual studio compilerのパスを設定してください")
+    sys.exit()
 
 if __name__ == '__main__':
+  launch_verification()
   client.run(TOKEN)
