@@ -1,6 +1,6 @@
 """
 制作者:natyosu.zip (natyosu.zip#2308)
-python -ver 3.11.3
+python -ver 3.10.3
 
 最終更新日:23/04/29
 
